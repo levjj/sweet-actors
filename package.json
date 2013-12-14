@@ -1,0 +1,23 @@
+{
+  "name": "sweet-actors",
+  "version": "0.0.1",
+  "description": "A set of sweetjs macros to write Scala-like actors.",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-sweet.js": "~0.1.2",
+    "sweet.js": "~0.3.2",
+    "expect.js": "~0.2.0",
+    "grunt-mocha-test": "~0.8.1"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/levjj/sweet-actors.git"
+  },
+  "author": "Christopher Schuster <cs@livoris.de>",
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
