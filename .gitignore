@@ -1,2 +1,3 @@
 node_modules
 tests/pingpong.js
+tests/pingpong.js.map
