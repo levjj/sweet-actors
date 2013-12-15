@@ -1,38 +1,70 @@
 var expect = require('expect.js');
 var Actor = require('../lib/actors').Actor;
+var System = require('../lib/actors').System;
 
 describe('dummy actor', function() {
 
-  actor A1 { }
+    actor DummyActor { }
 
-  it('should be an actor', function() {
-    var a = new A1();
-    expect(a).to.be.an(Actor);
-    expect(a).to.have.property('send');
-    expect(a).to.have.property('receive');
-  });
+    it('should be an actor', function() {
+        var a = new DummyActor();
+        expect(a).to.be.an(Actor);
+        expect(a).to.have.property('send');
+        expect(a).to.have.property('receive');
+    });
 });
 
-// describe('trivial actor', function() {
+var timeout = 10;
 
-//     var called;
+describe('trivial actor', function() {
 
-//     actor A2 [
-//       "foo" => { called = true; }
-//     ]
+    var called;
+    var a;
+    var system;
 
-//     beforeEach(function() {
-      
-//     });
+    actor TrivialActor {
+        "foo" => { called++; }
+    }
 
-//     it('should receive a foo message', function() {
-//         var a2 = new A2();
-//         called = false;
-//         a2 @ "foo";
+    beforeEach(function() {
+        a = new TrivialActor();
+        system = new System();
+        system.register(a);
+        called = 0;
+    });
 
-//         expect(called).to.be(true);
-//     }
+    it('should receive and handle a foo message', function(done) {
+        expect(a.inbox.first).to.equal(null);
+        expect(a.inbox.last).to.equal(null);
+        a ~ "foo";
+        expect(a.inbox.first).to.be.ok();
+        expect(a.inbox.first).to.equal(a.inbox.last);
+        system.start();
+        setTimeout(function() {
+            expect(called).to.be(1);
+            done();
+        },timeout);
+    });
 
+    it('should ignore a bar message', function(done) {
+        a ~ "bar";
+        system.start();
+        setTimeout(function() {
+            expect(called).to.be(0);
+            done();
+        },timeout);
+    });
+
+    it('should receive and handle multiple foo messages', function(done) {
+        a ~ "foo";
+        a ~ "foo";
+        system.start();
+        setTimeout(function() {
+            expect(called).to.be(2);
+            done();
+        },timeout);
+    });
+});
 
 // actor a2 [
 //     "ping" => {
