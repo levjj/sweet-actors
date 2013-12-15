@@ -11,6 +11,7 @@ The `actor` keyword can be used to create new actors which have to be
 instanciated like classes. Sending messages to actors is done with `~`
 following by an arbitrary number of arguments.
 
+```javascript
     var a1,a2;
 
     actor A1 {
@@ -34,10 +35,12 @@ following by an arbitrary number of arguments.
     a1 = new A1();
     a2 = new A2();
     a1 ~ "start";
+```
 
 Any kind of value can be send with `~`. Free variables can be used to bind
 values while literals (and other expressions) match a message:
 
+```javascript
     actor Greeter {
         "greet", someone => {
             // Ask for the name first
@@ -67,6 +70,7 @@ values while literals (and other expressions) match a message:
             console.log(msg);
         }
     }
+```
 
 
 Installation
@@ -74,14 +78,14 @@ Installation
 
 Assuming that [grunt](http://gruntjs.com/) is installed...
 
-    $ npm install
+    npm install
 
 Tests
 -----
 
 Tests are run with [mocha](http://visionmedia.github.io/mocha/).
 
-    $ npm test
+    npm test
 
 Debugging
 ---------
