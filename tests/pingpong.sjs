@@ -16,18 +16,18 @@ describe('Dummy actor', function() {
 
 var timeout = 20;
 
-describe('Trivial actor', function() {
+describe('Simple actor', function() {
 
     var called;
     var a;
     var system;
 
-    actor TrivialActor {
+    actor SimpleActor {
         "foo" => { called++; }
     }
 
     beforeEach(function() {
-        a = new TrivialActor();
+        a = new SimpleActor();
         system = new System();
         system.register(a);
         called = 0;
