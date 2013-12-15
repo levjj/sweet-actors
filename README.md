@@ -4,6 +4,9 @@ Sweet Actors
 A set of [sweet.js](http://sweetjs.org) macros for writing
 actors in a [Scala](http://scala-lang.org)-like syntax.
 
+This is based on the [SimpleActors](https://github.com/ajlopez/SimpleActors)
+JavaScript library.
+
 Examples
 --------
 

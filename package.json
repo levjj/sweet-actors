@@ -2,7 +2,9 @@
   "name": "sweet-actors",
   "version": "0.0.1",
   "description": "A set of sweetjs macros to write Scala-like actors.",
-  "dependencies": {},
+  "dependencies": {
+    "simpleactors": "~0.0.2"
+  },
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-sweet.js": "~0.1.2",
