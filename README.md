@@ -47,7 +47,7 @@ values while literals (and other expressions) match a message:
             someone ~ "who?";
         },
         "name!", "Jacques" => {
-            // Jack has its own routine
+            // Jacques has its own routine
             sender ~ "hello", "Bonjour Jacques!";
         },
         "name!", name => {
