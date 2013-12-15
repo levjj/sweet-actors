@@ -5,6 +5,8 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     sweetjs: {
       options: {
+        sourceMap: true,
+        nodeSourceMapSupport: true,
         modules: ['./lib/macros']
       },
       tests: {

@@ -75,9 +75,28 @@ values while literals (and other expressions) match a message:
 Installation
 ------------
 
+Assuming that [grunt](http://gruntjs.com/) is installed...
+
     $ npm install
 
 Tests
 -----
 
+Tests are run with [mocha](http://visionmedia.github.io/mocha/).
+
     $ npm test
+
+Debugging
+---------
+
+I recommend [node-inspector](https://github.com/node-inspector/node-inspector).
+
+    npm install -g node-inspector
+    node-inspector &
+
+Debugging the application:
+
+    node --debug-brk $(which grunt)
+
+If source-maps support is working, you will see the actual source file and not
+the generated code.
