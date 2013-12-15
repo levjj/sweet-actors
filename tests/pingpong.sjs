@@ -124,81 +124,89 @@ describe('Ping-pong actors', function() {
     });
 });
 
-// describe('Greeter actor', function() {
+describe('Greeter actor', function() {
 
-//     var greeter;
-//     var john;
-//     var james;
-//     var jack;
-//     var system;
+    var greeter;
+    var john;
+    var james;
+    var jack;
+    var system;
 
-//     actor Greeter {
-//         "greet", who => {
-//             who ~ "name?"
-//         },
-//         "name!", "Jack" => {
-//             sender ~ "tell", "I don't like you!"
-//         },
-//         "name!", name => {
-//             sender ~ "tell", "Hello " + name + "!"
-//         }
-//     }
+    actor Greeter {
+        "greet", who => {
+            who ~ "name?";
+        },
+        "name!", "Jack" => {
+            sender ~ "tell", "I don't like you!";
+        },
+        "name!", name => {
+            sender ~ "tell", "Hello " + name + "!";
+        }
+    }
 
-//     actor TestPerson {
-//         "name!", newName => { this.name = newName; }
-//         "name?" => { sender ~ "name", this.name; }
-//         "tell", msg => {
-//             if (!this.messages) this.messages = [];
-//             this.messages.push(msg);
-//         }
-//     }
+    actor TestPerson {
+        "name!", newName => {
+            this.name = newName;
+        },
+        "name?" => {
+            sender ~ "name!", this.name;
+        },
+        "tell", msg => {
+            if (!this.messages) this.messages = [];
+            this.messages.push(msg);
+        }
+    }
 
-//     beforeEach(function() {
-//         greeter = new Greeter();
-//         john = new TestPerson();
-//         john ~ "name!", "John";
-//         james = new TestPerson();
-//         james ~ "name!", "James";
-//         jack = new TestPerson();
-//         jack ~ "name!", "Jack";
-//         system = new System();
-//         system.register(greeter);
-//         system.register(john);
-//         system.register(james);
-//         system.register(jack);
-//     });
+    beforeEach(function() {
+        greeter = new Greeter();
+        john = new TestPerson();
+        john ~ "name!", "John";
+        james = new TestPerson();
+        james ~ "name!", "James";
+        jack = new TestPerson();
+        jack ~ "name!", "Jack";
+        system = new System();
+        system.register(greeter);
+        system.register(john);
+        system.register(james);
+        system.register(jack);
+    });
 
-//     it('should greet John', function(done) {
-//         greeter ~ "greet", john
-//         system.start();
-//         setTimeout(function() {
-//             expect(john.messages).to.have.length(1);
-//             expect(john.messages[0]).to.equal("Hello John!");
-//             expect(james.messages).to.equal(undefined);
-//             done();
-//         }, timeout);
-//     });
+    it('should greet John', function(done) {
+        greeter ~ "greet", john
+        system.start();
+        setTimeout(function() {
+            expect(john.messages).to.be.ok();
+            expect(john.messages).to.have.length(1);
+            expect(john.messages[0]).to.equal("Hello John!");
+            expect(james.messages).to.equal(undefined);
+            done();
+        }, timeout);
+    });
 
-//     it('should greet John and James', function(done) {
-//         greeter ~ "greet", john
-//         greeter ~ "greet", james
-//         system.start();
-//         setTimeout(function() {
-//             expect(john.messages).to.have.length(1);
-//             expect(john.messages[0]).to.equal("Hello John!");
-//             expect(james.messages).to.have.length(1);
-//             expect(james.messages[0]).to.equal("Hello James!");
-//             done();
-//         }, timeout);
-//     });
+    it('should greet John and James', function(done) {
+        greeter ~ "greet", john
+        greeter ~ "greet", james
+        system.start();
+        setTimeout(function() {
+            expect(john.messages).to.be.ok();
+            expect(john.messages).to.have.length(1);
+            expect(john.messages[0]).to.equal("Hello John!");
+            expect(james.messages).to.be.ok();
+            expect(james.messages).to.have.length(1);
+            expect(james.messages[0]).to.equal("Hello James!");
+            done();
+        }, timeout);
+    });
 
-//     it('should not greet Jack', function(done) {
-//         greeter ~ "greet", jack
-//         system.start();
-//         setTimeout(function() {
-//             expect(jack.messages).to.have.length(1);
-//             expect(jack.messages[0]).to.equal("I don't like you!");
-//             done();
-//         }, timeout);
-//     });
-// });
+    it('should not greet Jack', function(done) {
+        greeter ~ "greet", jack
+        system.start();
+        setTimeout(function() {
+            expect(jack.messages).to.be.ok();
+            expect(jack.messages).to.have.length(1);
+            expect(jack.messages[0]).to.equal("I don't like you!");
+            done();
+        }, timeout);
+    });
+});
