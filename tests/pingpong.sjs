@@ -129,15 +129,15 @@ describe('Greeter actor', function() {
     var greeter;
     var john;
     var james;
-    var jack;
+    var jacques;
     var system;
 
     actor Greeter {
         "greet", who => {
             who ~ "name?";
         },
-        "name!", "Jack" => {
-            sender ~ "tell", "I don't like you!";
+        "name!", "Jacques" => {
+            sender ~ "tell", "Bonjour Jacques!";
         },
         "name!", name => {
             sender ~ "tell", "Hello " + name + "!";
@@ -163,13 +163,13 @@ describe('Greeter actor', function() {
         john ~ "name!", "John";
         james = new TestPerson();
         james ~ "name!", "James";
-        jack = new TestPerson();
-        jack ~ "name!", "Jack";
+        jacques = new TestPerson();
+        jacques ~ "name!", "Jacques";
         system = new System();
         system.register(greeter);
         system.register(john);
         system.register(james);
-        system.register(jack);
+        system.register(jacques);
     });
 
     it('should greet John', function(done) {
@@ -199,13 +199,13 @@ describe('Greeter actor', function() {
         }, timeout);
     });
 
-    it('should not greet Jack', function(done) {
-        greeter ~ "greet", jack
+    it('should not greet Jacques', function(done) {
+        greeter ~ "greet", jacques
         system.start();
         setTimeout(function() {
-            expect(jack.messages).to.be.ok();
-            expect(jack.messages).to.have.length(1);
-            expect(jack.messages[0]).to.equal("I don't like you!");
+            expect(jacques.messages).to.be.ok();
+            expect(jacques.messages).to.have.length(1);
+            expect(jacques.messages[0]).to.equal("Bonjour Jacques!");
             done();
         }, timeout);
     });

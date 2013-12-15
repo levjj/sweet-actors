@@ -46,9 +46,9 @@ values while literals (and other expressions) match a message:
             // Ask for the name first
             someone ~ "who?";
         },
-        "name!", "Jack" => {
+        "name!", "Jacques" => {
             // Jack has its own routine
-            sender ~ "hello", "I don't like you!";
+            sender ~ "hello", "Bonjour Jacques!";
         },
         "name!", name => {
             // All others will receive a normal greeting
