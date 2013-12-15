@@ -14,7 +14,7 @@ describe('dummy actor', function() {
     });
 });
 
-var timeout = 10;
+var timeout = 20;
 
 describe('trivial actor', function() {
 
@@ -66,23 +66,61 @@ describe('trivial actor', function() {
     });
 });
 
-// actor a2 [
-//     "ping" => {
-//         console.log("ping");
-//         sender ! "pong";
-//     },
-//     "stop" => { console.log("stop"); }
-// ]
+describe('ping pong actors', function() {
 
-// actor a1 [
-//     "start" => {
-//         for (var i = 0; i < 100; i++) {
-//             a2 ! "ping";
-//         }
-//     },
-//     "pong" => { console.log("pong"); }
-// ]
+    var a1;
+    var a2;
+    var system;
 
-// a1.send("start");
-// new System([ping, pong]).start();
+    actor A1 {
+        "start" => {
+            for (var i = 0; i < 10; i++) {
+                a2 ~ "ping";
+            }
+        },
+        "pong" => {
+            if (!this.pongs) this.pongs = 0;
+            this.pongs++;
+        }
+    }
+
+    actor A2 {
+        "ping" => {
+            if (!this.pings) this.pings = 0;
+            this.pings++;
+            sender ~ "pong";
+        },
+    }
+
+
+    beforeEach(function() {
+        a1 = new A1();
+        a2 = new A2();
+        system = new System();
+        system.register(a1);
+        system.register(a2);
+    });
+
+    it('should send each other 10 pings and pongs', function(done) {
+        a1 ~ "start";
+        system.start();
+        setTimeout(function() {
+            expect(a1.pongs).to.be(10);
+            expect(a2.pings).to.be(10);
+            done();
+        }, timeout);
+    });
+
+    it('should send each other 30 pings and pongs', function(done) {
+        a1 ~ "start";
+        system.start();
+        a1 ~ "start";
+        setTimeout(function() { a1 ~ "start"; }, 1);
+        setTimeout(function() {
+            expect(a1.pongs).to.be(30);
+            expect(a2.pings).to.be(30);
+            done();
+        }, timeout*2);
+    });
+});
 
