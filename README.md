@@ -7,11 +7,11 @@ actors in a [Scala](http://scala-lang.org)-like syntax.
 Examples
 --------
 
-The `actor` keyword creates a new actor prototype with the provided name which
-can then be instantiated. The body of an actor includes different cases
-depending on the message being sent. Sending messages to actors with `~`
-automatically passes in a reference of the origin actor which is available
-for the actor as `sender`.
+The `actor` keyword creates a new actor prototype which can then be instantiated.
+The body of an actor includes different cases depending on the message being received.
+
+Additionally, sending a message to an actors with `~` automatically passes a
+reference to the message origin which is available as `sender`.
 
 ```javascript
     var a1,a2;
@@ -39,9 +39,9 @@ for the actor as `sender`.
     a1 ~ "start";
 ```
 
-Messages send with `~` consist of an arbitrary number of values. Like Scala's
-pattern matching, the actor supports *multiple dispatch* which binds free
-variables and matches literals.
+Messages consist of an arbitrary number of JavaScript values. Similar to
+Scala's pattern matching, the actor uses a variant of *multiple dispatch*
+which matches arguments with literals and binds any free variables.
 
 ```javascript
     actor Greeter {
