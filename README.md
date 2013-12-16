@@ -7,11 +7,11 @@ actors in a [Scala](http://scala-lang.org)-like syntax.
 Examples
 --------
 
-The `actor` keyword creates a new actor prototype which can then be instantiated.
-The body of an actor includes different cases depending on the message being received.
-
-Additionally, sending a message to an actors with `~` automatically passes a
-reference to the message origin which is available as `sender`.
+The `actor` keyword creates a new actor prototype which can then be
+instantiated. The body of an actor includes different cases depending on the
+message being received. Additionally, sending messages to actors with `~`
+automatically passes a reference to the message origin which is available as
+`sender`.
 
 ```javascript
     var a1,a2;
