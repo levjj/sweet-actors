@@ -86,7 +86,7 @@ Assuming that [grunt](http://gruntjs.com/) is installed...
 Tests
 -----
 
-Tests are run with [mocha](http://visionmedia.github.io/mocha/).
+Tests are run with [mocha](http://mochajs.org/).
 
     npm test
 
